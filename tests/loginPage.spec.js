@@ -16,10 +16,6 @@ test('login page', async ({page})=>
      await expect(page).toHaveTitle('OrangeHRM');
      await page.close();
 
-
-
-
-
 })
 
 

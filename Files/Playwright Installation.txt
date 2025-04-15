@@ -1,0 +1,39 @@
+Playwright Installation
+
+prerequest
+
+node js 
+npm 
+
+npm init playwright@latest
+
+========
+playwright.config = project configuration 
+package.json = pom.xml file for dependencies
+
+
+to run the tests 
+npx playwright test
+npx playwright test --headed
+npx playwright test loginPage.spec.js --headed
+npx playwright test loginPage.spec.js --project=chromium --headed
+npx playwright test loginPage.spec.js --project=chromium --headed --debug
+
+
+to show the reports 
+npx playwright show-report
+
+npx playwright codegen 
+npx playwright codegen https://demoblaze.com/ --output=tests/codegenTrial.spec.js === auto creation file with script
+npx playwright codegen --target javascript
+npx playwright codegen -b chromium
+npx playwright codegen https://demoblaze.com/ --device="iPhone 13" --output=tests/codegenTrialMobile.spec.js
+npx playwright codegen https://demoblaze.com/ --device="iPhone 13" --project=chromium --output=tests/codegenTrialMobile.spec.js
+
+
+
+
+
+
+
+

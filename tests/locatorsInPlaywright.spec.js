@@ -8,17 +8,17 @@ test('Locators' , async({page})=>
     // css
     // xpath
 
-    await page.goto("https://hrm.neotechacademy.com/auth/seamlessLogin");
+    await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
-   await page.locator("//input[@id='txtUsername']").fill("Admin");
-   await  page.locator("//input[@id='txtPassword']").fill("Neotech@123");
+   await page.locator("//input[@placeholder='Username']").fill("Admin");
+   await  page.locator("//input[@placeholder='Password']").fill("admin123");
 
    await page.click("//button[@type='submit']");
 
    const url= page.url();
    await expect(page).toHaveURL(url)
 
-   const dash=page.locator("//img[@class='circle account-photo']");
+   const dash = page.locator("//img[@alt='client brand banner']");
 
     await expect(dash).toBeVisible();
 
