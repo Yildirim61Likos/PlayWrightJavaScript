@@ -1,7 +1,6 @@
 {
   "name": "playwrightjavascript",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
@@ -11,5 +10,19 @@
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.14.0",
     "allure-playwright": "^3.2.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "allure-js-commons": "^3.2.1",
+    "charenc": "^0.0.2",
+    "crypt": "^0.0.2",
+    "is-buffer": "^1.1.6",
+    "md5": "^2.3.0",
+    "playwright": "^1.51.1",
+    "playwright-core": "^1.51.1",
+    "undici-types": "^6.21.0"
+  },
+  "description": ""
 }
