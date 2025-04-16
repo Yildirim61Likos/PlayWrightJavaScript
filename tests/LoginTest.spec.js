@@ -1,7 +1,7 @@
 import { test, expect } from '../hooks/global-hooks';
 import config from '../playwright.config.js';
 
-test('LoginTest', async ({ loginPage, dashboardPage }) => {
+test('LoginTest@smoke', async ({ loginPage, dashboardPage }) => {
     
   
   // Get username and password from the config
