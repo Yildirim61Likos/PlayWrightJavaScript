@@ -35,7 +35,7 @@ export default defineConfig({
   use: 
   {
     headless: false,
-    baseURL: 'https://hrm.neotechacademy.com/',
+    baseURL: process.env.BASE_URL || 'https://hrm.neotechacademy.com/',
     browserName: 'firefox',
     username: 'Admin',
     password: 'Neotech@123',
