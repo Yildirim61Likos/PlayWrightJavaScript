@@ -1,0 +1,113 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: PomTest
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Retry.spec.js:5:5
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: {Symbol(async_id_symbol): 8801, Symbol(trigger_async_id_symbol): 8639, Symbol(kResourceStore): undefined}
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Retry.spec.js:22:27
+```
+
+# Page snapshot
+
+```yaml
+- link "close"
+- img
+- img
+- link "Jacqueline White Global HR Manager keyboard_arrow_down"
+- text: ohrm_home Home
+- link "ohrm_shortcuts My Shortcuts"
+- list:
+  - listitem: ohrm_admin Admin add
+  - listitem:
+    - text: ohrm_pim PIM remove
+    - list:
+      - listitem: Configuration add
+      - listitem:
+        - link "Employee List"
+      - listitem:
+        - link "Add Employee"
+      - listitem:
+        - link "Reports"
+      - listitem: Manage Data add
+  - listitem:
+    - link "account_circle My Info"
+  - listitem: ohrm_discipline Discipline add
+  - listitem:
+    - link "description Reports Catalog"
+  - listitem:
+    - text: add_circle More add
+    - list:
+      - listitem: Announcements add
+      - listitem:
+        - link "Dashboard"
+      - listitem:
+        - link "Buzz"
+      - listitem:
+        - link "Directory"
+      - listitem: Organization Chart add
+      - listitem:
+        - link "Preferences"
+      - listitem: Assets add
+  - listitem: settings Maintenance add
+- banner:
+  - navigation:
+    - list:
+      - listitem: Employee List
+    - list:
+      - listitem:
+        - textbox "Employee Name"
+      - listitem:
+        - link "ohrm_search"
+      - listitem:
+        - link "ohrm_filter"
+      - listitem:
+        - link "bookmark_border"
+      - listitem: help Help
+- text: OrangeHRM 7.3 © 2005 - 2025
+- link "OrangeHRM, Inc"
+- text: . All rights reserved.
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '@playwright/test';
+   2 | import { LoginPage } from '../Pages/LoginPage';
+   3 | import { DashBoardPage } from '../Pages/DashBoardPage';
+   4 |
+   5 | test('PomTest', async ({ page }) => {
+   6 |     // Login
+   7 |     const login = new LoginPage(page);
+   8 |     await login.navigateToLoginPage();
+   9 |     await login.login("Admin", "Neotech@123");
+  10 |
+  11 |     // Wait for the dashboard to load
+  12 |     await page.waitForTimeout(2000);
+  13 |
+  14 |     // Home Page
+  15 |     const dash = new DashBoardPage(page);
+  16 |     await dash.clickPimButton();
+  17 |     await dash.clickEmployeeListButton();
+  18 |     await dash.verifyEmployeeTable();
+  19 |
+  20 |     const frame=page.locator("//div[@id='ohrm-small-logo']//div");
+  21 |     const status=frame.isVisible();
+> 22 |     await  expect(status).toBe(false); // Verify the field is visible
+     |                           ^ Error: expect(received).toBe(expected) // Object.is equality
+  23 |     
+  24 |
+  25 |     await page.waitForTimeout(2000); // wait for 2 seconds to see the dashboard
+  26 | });
+```

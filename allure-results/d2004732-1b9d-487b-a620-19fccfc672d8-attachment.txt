@@ -1,0 +1,18 @@
+Error during setup: ReferenceError: chromium is not defined
+    at BasePage.setup (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\support\BasePage.js:12:36)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\hooks\global-hooks.js:27:20
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\fixtureRunner.js:236:52
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\testInfo.js:299:17
+    at TimeoutManager.withRunnable (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\timeoutManager.js:69:34)
+    at TestInfoImpl._runWithTimeout (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\testInfo.js:297:34)
+    at FixtureRunner.resolveParametersAndRunFunction (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\fixtureRunner.js:236:20)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:521:13
+    at TestInfoImpl._runAsStep (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\testInfo.js:286:7)
+    at WorkerMain._runAllHooksForSuite (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:504:9)
+    at WorkerMain._runBeforeAllHooksForSuite (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:497:5)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:320:37
+    at TestInfoImpl._runAsStep (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\testInfo.js:286:7)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:315:7
+    at WorkerMain._runTest (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:292:5)
+    at WorkerMain.runTestGroup (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\worker\workerMain.js:207:11)
+    at process.<anonymous> (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\node_modules\playwright\lib\common\process.js:95:22)
