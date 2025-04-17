@@ -27,7 +27,8 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 echo "🚀 Running Playwright tests with tag: ${env.TEST_TAG} on Chromium"
-                bat "npx playwright test --grep ${env.TEST_TAG} --project=chromium --base-url=${env.BASE_URL}"
+                bat "set BASE_URL=${env.BASE_URL} && npx playwright test --grep ${env.TEST_TAG} --project=chromium"
+
             }
         }
 
