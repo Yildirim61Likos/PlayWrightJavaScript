@@ -1,0 +1,66 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: LoginTest@smoke
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\LoginTest.spec.js:4:5
+
+# Error details
+
+```
+Error: locator.fill: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('//input[@id=\'txtUsername\']')
+
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\LoginTest.spec.js:12:47
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '../hooks/global-hooks';
+   2 | import config from '../playwright.config.js';
+   3 |
+   4 | test('LoginTest@smoke', async ({ loginPage, dashboardPage }) => {
+   5 |     
+   6 |   
+   7 |   // Get username and password from the config
+   8 |     const username = config.use.username;
+   9 |     const password = config.use.password;
+  10 |
+  11 |        // Access the username input directly
+> 12 |        await loginPage.locators.usernameInput.fill(username);
+     |                                               ^ Error: locator.fill: Target page, context or browser has been closed
+  13 |
+  14 |        // Access the password input directly
+  15 |        await loginPage.locators.passwordInput.fill(password);
+  16 |    
+  17 |        // Access the login button directly
+  18 |        await loginPage.locators.loginButton.click();
+  19 |    
+  20 |        // Optionally, you can still use the `login` method for the full login flow
+  21 |        // await loginPage.login("Admin", "Neotech@123");
+  22 |     // Wait for 3 seconds to see the dashboard
+  23 |     await dashboardPage.page.waitForTimeout(3000);
+  24 |
+  25 |     // Wait for the dashboard to load
+  26 |     await dashboardPage.clickPimButton();
+  27 |     await dashboardPage.clickEmployeeListButton();
+  28 |     await dashboardPage.verifyEmployeeTable();
+  29 |
+  30 |     // Wait for another 3 seconds
+  31 |     await dashboardPage.page.waitForTimeout(3000);
+  32 | });
+  33 |
+  34 |
+  35 | test('Login with valid credentials@smoke', async ({ loginPage }) => {
+  36 |   await CommonMethods.loginWithValidCredentials(loginPage); // Call the static method directly
+  37 | });
+  38 |
+  39 |
+  40 |
+```

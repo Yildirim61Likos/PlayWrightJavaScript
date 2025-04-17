@@ -1,6 +1,6 @@
 import { test, expect } from '../hooks/global-hooks';
 import config from '../playwright.config.js';
-
+import { CommonMethods } from '../support/CommonMethods'; // Ensure the path is correct
 test('LoginTest@smoke', async ({ loginPage, dashboardPage }) => {
     
   
@@ -30,3 +30,10 @@ test('LoginTest@smoke', async ({ loginPage, dashboardPage }) => {
     // Wait for another 3 seconds
     await dashboardPage.page.waitForTimeout(3000);
 });
+
+// this is for sample !!!
+test('Login with valid credentials@smoke', async ({ loginPage }) => {
+  await CommonMethods.loginWithValidCredentials(loginPage); // Call the static method directly
+});
+
+

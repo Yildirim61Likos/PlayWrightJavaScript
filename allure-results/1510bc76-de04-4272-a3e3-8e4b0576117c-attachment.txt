@@ -1,0 +1,3 @@
+Error during teardown: browserContext.close: Target page, context or browser has been closed
+    at BasePage.teardown (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\support\BasePage.js:37:29)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\hooks\global-hooks.js:33:5
