@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'NodeJs23' // ✅ Make sure this Node.js version is configured in Jenkins
+    }
+
+    environment {
+        TEST_TAG = '@smoke'
+        BASE_URL = 'https://hrm.neotechacademy.com/' // ✅ Set dynamically from here
+    }
+
+    stages {
+        stage('Checkout Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Yildirim61Likos/PlayWrightJavaScript'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo '🔧 Installing NPM dependencies...'
+                bat 'npm install'
+            }
+        }
+
+        stage('Run Playwright Tests') {
+            steps {
+                echo "🚀 Running Playwright tests with tag: ${env.TEST_TAG} on Chromium"
+                bat "npx playwright test --grep ${env.TEST_TAG} --project=chromium --base-url=${env.BASE_URL}"
+            }
+        }
+
+        stage('Publish Playwright Report') {
+            steps {
+                publishHTML([
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'playwright-report',
+                    reportFiles: 'index.html',
+                    reportName: 'Playwright HTML Report'
+                ])
+            }
+        }
+    }
+
+    post {
+        always {
+            echo '📦 Archiving test results...'
+            archiveArtifacts artifacts: '**/test-results/**/*.*', allowEmptyArchive: true
+            cleanWs()
+        }
+
+        failure {
+            echo '❌ Build failed'
+        }
+
+        success {
+            echo '✅ Build succeeded!'
+        }
+    }
+}
