@@ -1,5 +1,4 @@
-import { PageInitializer } from './PageInitializer.js';
-
+// Importing necessary modules
 export class CommonMethods 
 {
 

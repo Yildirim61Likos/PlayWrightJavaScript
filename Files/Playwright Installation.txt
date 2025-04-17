@@ -1,39 +1,144 @@
-Playwright Installation
+# 📘 Playwright Installation & Usage Guide
 
-prerequest
+## ✅ Prerequisites
+Before installing Playwright, make sure you have:
+- **Node.js** installed ([https://nodejs.org](https://nodejs.org))
+- **npm** (comes with Node.js)
 
-node js 
-npm 
-
+## 🔧 Installation
+Use the official setup tool to initialize your Playwright project:
+```bash
 npm init playwright@latest
+```
 
-========
-playwright.config = project configuration 
-package.json = pom.xml file for dependencies
+This will:
+- Install Playwright and related packages
+- Generate boilerplate files: `playwright.config.js`, example tests, etc.
 
+## 📁 Key Files
+- `playwright.config.js` → Main project configuration (like browser, baseURL, timeouts)
+- `package.json` → Dependency manager (equivalent to Maven's `pom.xml`)
 
-to run the tests 
-npx playwright test
-npx playwright test --headed
+---
+
+## 📂 Recommended Project Structure
+```bash
+/playwright.config.js
+/package.json
+/tests/                 ← feature-based test specs
+/pages/                 ← Page Object Model (POM) classes
+/utils/                 ← helpers like data generators, file readers
+/hooks/                 ← global setup/teardown
+/report/                ← custom reporting or screenshots
+```
+
+---
+
+## ▶️ Running Tests
+```bash
+npx playwright test                         # Run all tests
+npx playwright test --headed               # Run in headed mode
 npx playwright test loginPage.spec.js --headed
 npx playwright test loginPage.spec.js --project=chromium --headed
 npx playwright test loginPage.spec.js --project=chromium --headed --debug
+```
 
+---
 
-to show the reports 
-npx playwright show-report
+## 📊 Viewing Reports
+```bash
+npx playwright show-report                 # Opens the last HTML test report
+```
 
-npx playwright codegen 
-npx playwright codegen https://demoblaze.com/ --output=tests/codegenTrial.spec.js === auto creation file with script
-npx playwright codegen --target javascript
-npx playwright codegen -b chromium
+---
+
+## ✨ Code Generation (Codegen)
+```bash
+npx playwright codegen                                 # Open blank recorder
+npx playwright codegen https://demoblaze.com/          # Open URL and record
+npx playwright codegen https://demoblaze.com/ --output=tests/codegenTrial.spec.js
+npx playwright codegen --target javascript             # Generate JS output
+npx playwright codegen -b chromium                     # Specify browser
 npx playwright codegen https://demoblaze.com/ --device="iPhone 13" --output=tests/codegenTrialMobile.spec.js
 npx playwright codegen https://demoblaze.com/ --device="iPhone 13" --project=chromium --output=tests/codegenTrialMobile.spec.js
+```
 
+---
 
+## 🔍 Tag Filtering
+```bash
+npx playwright test --grep "@sanity"                  # Run tests with @sanity
+npx playwright test --grep "@sanity@reg"             # Run tests with multiple tags
+```
 
+---
 
+## 🧪 Running Tests by Browser
+```bash
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
+```
+> Add this to `playwright.config.js`:
+```js
+projects: [
+  { name: 'chromium', use: { browserName: 'chromium' }},
+  { name: 'firefox', use: { browserName: 'firefox' }},
+  { name: 'webkit', use: { browserName: 'webkit' }}
+]
+```
 
+---
 
+## 🔁 Retry Logic for Flaky Tests
+```js
+retries: 1 // Global in config
+```
+Or per test:
+```js
+test('flaky test', async () => { ... }, { retries: 2 });
+```
 
+---
 
+## 📹 Screenshots & Video
+```js
+use: {
+  screenshot: 'only-on-failure',
+  video: 'retain-on-failure'
+}
+```
+
+---
+
+## 📑 Reporters
+```bash
+npx playwright test --reporter=line
+npx playwright test --reporter=list
+npx playwright test --reporter=dot
+npx playwright test --reporter=html
+
+# JSON Reporter
+PLAYWRIGHT_JSON_OUTPUT_NAME=results.json \
+npx playwright test --reporter=json
+
+# JUnit Reporter
+PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml \
+npx playwright test --reporter=junit
+```
+
+---
+
+## 🧪 Allure Reporting
+1. Install Allure reporter:
+```bash
+npm install -D allure-playwright
+```
+
+2. Generate and view the report:
+```bash
+allure generate allure-results -o allure-report --clean
+allure open allure-report
+```
+
+---
