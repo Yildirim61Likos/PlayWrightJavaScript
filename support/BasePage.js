@@ -10,8 +10,8 @@ class BasePage {
       console.log(`Setting up browser: ${browserName}...`);
       try {
           if (browserName === 'chromium') {
-              this.browser = await chromium.launch({ headless });
-          } else if (browserName === 'firefox') {
+            this.browser = await chromium.launch({ headless, channel: 'chrome' });
+          }else if (browserName === 'firefox') {
               this.browser = await firefox.launch({ headless });
           } else if (browserName === 'webkit') {
               this.browser = await webkit.launch({ headless });

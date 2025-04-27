@@ -37,7 +37,7 @@ export default defineConfig({
     headless: false,
     //baseURL: process.env.BASE_URL, // use this if using ci-cd 
     baseURL: 'https://hrm.neotechacademy.com/',
-    browserName: 'firefox',
+    browserName: 'chromium',
     username: 'Admin',
     password: 'Neotech@123',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */

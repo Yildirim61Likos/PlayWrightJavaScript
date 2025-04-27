@@ -1,6 +1,6 @@
 import{test,expect , chromium } from '@playwright/test';
 
-test('Pages/Windows', async ({ page }) => {
+test('Pages/Windows', async ({page}) => {
 
 
     const browser = await chromium.launch({ headless: false });
@@ -8,12 +8,12 @@ test('Pages/Windows', async ({ page }) => {
     const page1 = await context.newPage();
 
 
-    await page.goto('https://the-internet.herokuapp.com/windows');
+    await page.goto('https://hrm.neotechacademy.com/');
     //verify title of the page
     const title = await page.title();
     console.log(title); // The Internet 
 
-    page.waitForTimeout(5000); // wait for 2 seconds to see the dashboard
+    await page.waitForTimeout(5000); // wait for 2 seconds to see the dashboard
    
     const allPages=context.pages();
     console.log(allPages.length); // 2 pages are opened
