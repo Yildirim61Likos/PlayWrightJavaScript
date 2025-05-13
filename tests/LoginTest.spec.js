@@ -28,12 +28,19 @@ test('LoginTest@smoke', async ({ loginPage, dashboardPage }) => {
     await dashboardPage.verifyEmployeeTable();
 
     // Wait for another 3 seconds
-    await dashboardPage.page.waitForTimeout(3000);
+    await dashboardPage.page.waitForTimeout(2000);
+    await dashboardPage.logout();
+    await dashboardPage.page.waitForTimeout(2000);
 });
 
 // this is for sample !!!
-test('Login with valid credentials@smoke', async ({ loginPage }) => {
+test('Login with valid credentials@smoke', async ({ loginPage, dashboardPage }) => {
   await CommonMethods.loginWithValidCredentials(loginPage); // Call the static method directly
+
+  await dashboardPage.page.waitForTimeout(2000);
+
+  await dashboardPage.logout();
+  await dashboardPage.page.waitForTimeout(2000);
 });
 
 

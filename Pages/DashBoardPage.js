@@ -9,6 +9,8 @@ export class DashBoardPage extends BasePage {
             pimButton: "//span[normalize-space()='PIM']",
             employeeListButton: "//span[normalize-space()='Employee List']",
             employeeTable: "//li[@class='page-title']",
+            profileButton: "//i[normalize-space()='keyboard_arrow_down']",
+            logoutButton: "//a[@id='logoutLink']",
         };
     }
 
@@ -26,5 +28,12 @@ export class DashBoardPage extends BasePage {
         console.log("Verifying the Employee Table is visible...");
         const employeeTable = this.page.locator(this.locators.employeeTable);
         await expect(employeeTable).toBeVisible();
+    }
+
+    async logout() {
+        console.log("Clicking the profile button...");
+        await this.page.locator(this.locators.profileButton).click(); // Click the profile button
+        console.log("Clicking the logout button...");
+        await this.page.locator(this.locators.logoutButton).click(); // Click the logout button
     }
 }

@@ -1,0 +1,50 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: login page
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\loginPage.spec.js:3:1
+
+# Error details
+
+```
+Error: page.goto: Test timeout of 30000ms exceeded.
+Call log:
+  - navigating to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", waiting until "load"
+
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\loginPage.spec.js:6:16
+```
+
+# Test source
+
+```ts
+   1 | const {test, expect} = require ('@playwright/test');
+   2 |
+   3 | test('login page', async ({page})=> 
+   4 | {
+   5 |
+>  6 |     await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+     |                ^ Error: page.goto: Test timeout of 30000ms exceeded.
+   7 |
+   8 |      const pageTitle = await page.title();
+   9 |
+  10 |      console.log("Page title is " + pageTitle);
+  11 |
+  12 |      const pageUrl= await page.url();
+  13 |      console.log("Page url is "+ pageUrl);
+  14 |
+  15 |      await expect(page).toHaveURL("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+  16 |      await expect(page).toHaveTitle('OrangeHRM');
+  17 |      await page.close();
+  18 |
+  19 | })
+  20 |
+  21 |
+  22 |
+  23 |
+  24 |
+```

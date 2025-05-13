@@ -1,0 +1,42 @@
+Error during setup: page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://hrm.neotechacademy.com/", waiting until "load"
+
+    at BasePage.setup (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\support\BasePage.js:26:27)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\hooks\global-hooks.js:27:5 {
+  [Symbol(step)]: {
+    stepId: 'pw:api@6',
+    location: {
+      file: 'C:\\Users\\yildi\\VsCodeProjects\\PlayWrightJavaScript\\support\\BasePage.js',
+      line: 26,
+      column: 27,
+      function: 'BasePage.setup'
+    },
+    category: 'pw:api',
+    title: 'page.goto(https://hrm.neotechacademy.com/)',
+    apiName: 'page.goto',
+    params: { url: 'https://hrm.neotechacademy.com/', waitUntil: 'load' },
+    boxedStack: undefined,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [TestInfoImpl],
+      _stepId: 'pw:api@6'
+    },
+    complete: [Function: complete],
+    endWallTime: 1746736980508,
+    error: {
+      message: 'Error: page.goto: Target page, context or browser has been closed\n' +
+        'Call log:\n' +
+        '\x1B[2m  - navigating to "https://hrm.neotechacademy.com/", waiting until "load"\x1B[22m\n',
+      stack: 'Error: page.goto: Target page, context or browser has been closed\n' +
+        'Call log:\n' +
+        '\x1B[2m  - navigating to "https://hrm.neotechacademy.com/", waiting until "load"\x1B[22m\n' +
+        '\n' +
+        '    at BasePage.setup (C:\\Users\\yildi\\VsCodeProjects\\PlayWrightJavaScript\\support\\BasePage.js:26:27)\n' +
+        '    at C:\\Users\\yildi\\VsCodeProjects\\PlayWrightJavaScript\\hooks\\global-hooks.js:27:5',
+      cause: undefined
+    }
+  }
+}

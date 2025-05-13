@@ -1,0 +1,59 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Regular Alert 
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Alert1.spec.js:3:5
+
+# Error details
+
+```
+Error: page.waitForEvent: Test timeout of 30000ms exceeded.
+=========================== logs ===========================
+waiting for event "30000"
+============================================================
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Alert1.spec.js:7:13
+```
+
+# Page snapshot
+
+```yaml
+- link "Fork me on GitHub":
+  - img "Fork me on GitHub"
+- heading "JavaScript Alerts" [level=3]
+- paragraph: Here are some examples of different JavaScript alerts which can be troublesome for automation
+- list:
+  - listitem:
+    - button "Click for JS Alert"
+  - listitem:
+    - button "Click for JS Confirm"
+  - listitem:
+    - button "Click for JS Prompt"
+- heading "Result:" [level=4]
+- paragraph
+- separator
+- text: Powered by
+- link "Elemental Selenium"
+```
+
+# Test source
+
+```ts
+   1 | import{test , expect} from '@playwright/test';
+   2 |
+   3 | test('Regular Alert ', async ({page})=>{
+   4 |
+   5 |  await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+   6 |
+>  7 |  await page.waitForEvent(30000); // wait for 3 seconds to see the alert
+     |             ^ Error: page.waitForEvent: Test timeout of 30000ms exceeded.
+   8 |
+   9 |
+  10 |
+  11 |
+  12 | })
+```

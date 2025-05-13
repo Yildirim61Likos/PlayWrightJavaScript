@@ -1,0 +1,127 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Handle Alerts prompt input box Alert
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Alerts.spec.js:68:5
+
+# Error details
+
+```
+Error: page.goto: Test timeout of 30000ms exceeded.
+Call log:
+  - navigating to "https://the-internet.herokuapp.com/javascript_alerts", waiting until "load"
+
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Alerts.spec.js:75:21
+```
+
+# Test source
+
+```ts
+   1 | import{test,expect} from '@playwright/test';
+   2 |
+   3 |
+   4 |
+   5 | test.skip('Handle Alerts Regular Alert', async({ page })=>{
+   6 |
+   7 |     // by default alerts are handled by playwright and they are not shown in the browser
+   8 |     // to see the alerts in the browser we need to set the 'page.on' event listener
+   9 |
+   10 |
+   11 |      await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+   12 |
+   13 |
+   14 |      await page.on('dialog', async dialog => 
+   15 |     {
+   16 |         expect(dialog.type()).toBe('alert'); // check the type of the alert
+   17 |         expect(dialog.message()).toBe('I am a JS Alert'); // check the message of the alert
+   18 |         console.log(dialog.message());
+   19 |         await dialog.accept(); // to accept the alert
+   20 |         // dialog.dismiss(); // to dismiss the alert
+   21 |      })
+   22 |      await page.locator("//button[@onclick='jsAlert()']").click(); 
+   23 |
+   24 |     const text= await page.locator("//p[@id='result']");
+   25 |
+   26 |     await expect(await text.textContent()).toBe('You successfully clicked an alert'); // check the text of the alert
+   27 |
+   28 |
+   29 |     await page.waitForTimeout(3000); // wait for 2 seconds to see the alert
+   30 |
+   31 |     
+   32 | })
+   33 |
+   34 |
+   35 |
+   36 | test.skip('Handle Alerts Confirmation Alert', async({ page })=>
+   37 | {
+   38 |
+   39 |     // by default alerts are handled by playwright and they are not shown in the browser
+   40 |     // to see the alerts in the browser we need to set the 'page.on' event listener
+   41 |
+   42 |
+   43 |      await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+   44 |
+   45 |
+   46 |      await page.on('dialog', async dialog => 
+   47 |     {
+   48 |         expect(dialog.type()).toBe('confirm'); // check the type of the alert
+   49 |         expect(dialog.message()).toBe('I am a JS Confirm'); // check the message of the alert
+   50 |         console.log(dialog.message());
+   51 |         await dialog.accept(); // to accept the alert
+   52 |         // dialog.dismiss(); // to dismiss the alert
+   53 |      })
+   54 |      //first we rae clicking the button to open the alert and then we are handling the alert
+   55 |      await page.locator("//button[@onclick='jsConfirm()']").click(); 
+   56 |
+   57 |     const text= await page.locator("//p[@id='result']");
+   58 |
+   59 |     await expect(await text.textContent()).toBe('You clicked: Ok'); // check the text of the alert
+   60 |
+   61 |
+   62 |     await page.waitForTimeout(3000); // wait for 2 seconds to see the alert
+   63 |
+   64 |     
+   65 | })
+   66 |
+   67 |
+   68 | test('Handle Alerts prompt input box Alert', async({ page })=>
+   69 |     {
+   70 |     
+   71 |         // by default alerts are handled by playwright and they are not shown in the browser
+   72 |         // to see the alerts in the browser we need to set the 'page.on' event listener
+   73 |     
+   74 |     
+>  75 |          await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+      |                     ^ Error: page.goto: Test timeout of 30000ms exceeded.
+   76 |     
+   77 |     
+   78 |          await page.on('dialog', async dialog => 
+   79 |         {
+   80 |             expect(dialog.type()).toBe('prompt'); // check the type of the alert
+   81 |             expect(dialog.message()).toBe('I am a JS prompt'); // check the message of the alert
+   82 |             console.log(dialog.message());
+   83 |
+   84 |             // to type in the alert input box
+   85 |
+   86 |            // expect(dialog.defaultValue()).toBe('Hello'); // check the default value of the alert input box
+   87 |             await dialog.accept('Hello'); // to accept the alert
+   88 |
+   89 |          })
+   90 |          //first we rae clicking the button to open the alert and then we are handling the alert
+   91 |          await page.locator("//button[@onclick='jsPrompt()']").click(); 
+   92 |     
+   93 |         const text= await page.locator("//p[@id='result']");
+   94 |     
+   95 |         await expect(await text.textContent()).toBe('You entered: Hello'); // check the text of the alert
+   96 |     
+   97 |     
+   98 |         await page.waitForTimeout(3000); // wait for 2 seconds to see the alert
+   99 |     
+  100 |         
+  101 |     })
+```

@@ -1,0 +1,42 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Login with valid credentials@smoke
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\LoginTest.spec.js:35:5
+
+# Error details
+
+```
+Error: locator.fill: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('//input[@id=\'txtUsername\']')
+
+    at Function.loginWithValidCredentials (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\support\CommonMethods.js:11:48)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\LoginTest.spec.js:36:23
+```
+
+# Test source
+
+```ts
+   1 | // Importing necessary modules
+   2 | import config from '../playwright.config.js'; // Ensure this is the correct path
+   3 |
+   4 | export class CommonMethods {
+   5 |     /**
+   6 |      * Logs in with valid credentials using the username and password from the config.
+   7 |      * Assumes `loginPage` is globally provided by global-hooks.js.
+   8 |      */
+   9 |     static async loginWithValidCredentials(loginPage) {
+  10 |         console.log("Logging in with valid credentials...");
+> 11 |         await loginPage.locators.usernameInput.fill(config.use.username); // Fill the username
+     |                                                ^ Error: locator.fill: Target page, context or browser has been closed
+  12 |         await loginPage.locators.passwordInput.fill(config.use.password); // Fill the password
+  13 |         await loginPage.locators.loginButton.click(); // Click the login button
+  14 |     }
+  15 | }
+```

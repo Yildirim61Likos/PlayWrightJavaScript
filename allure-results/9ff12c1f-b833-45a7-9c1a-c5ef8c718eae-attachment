@@ -1,0 +1,133 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Alert with prompt 
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\AlertForBt.spec.js:60:5
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "You entered: Yildirim"
+Received: "You entered: null"
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\AlertForBt.spec.js:80:48
+```
+
+# Page snapshot
+
+```yaml
+- link "Fork me on GitHub":
+  - img "Fork me on GitHub"
+- heading "JavaScript Alerts" [level=3]
+- paragraph: Here are some examples of different JavaScript alerts which can be troublesome for automation
+- list:
+  - listitem:
+    - button "Click for JS Alert"
+  - listitem:
+    - button "Click for JS Confirm"
+  - listitem:
+    - button "Click for JS Prompt"
+- heading "Result:" [level=4]
+- paragraph: "You entered: null"
+- separator
+- text: Powered by
+- link "Elemental Selenium"
+```
+
+# Test source
+
+```ts
+   1 | import{test,expect} from '@playwright/test';
+   2 |
+   3 |
+   4 | test.skip('Alert', async({ page })=>{
+   5 |
+   6 |     await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+   7 |
+   8 |     await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+   9 |
+  10 |     await page.on('dialog ', async dialog =>{
+  11 |
+  12 |         //expect(dialog.type()).toBe('alert');
+  13 |         console.log(dialog.message());
+  14 |         dialog.accept(); // accept the alert
+  15 |     })
+  16 |
+  17 |    await page.locator("//button[@onclick='jsAlert()']").click(); // click on the button to open the alert
+  18 |
+  19 |     
+  20 |         await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+  21 |     
+  22 |         const text= await page.locator("//p[@id='result']");
+  23 |     
+  24 |         await expect(await text.textContent()).toBe('You successfully clicked an alert'); // check the text of the alert
+  25 |     
+  26 |         await page.waitForTimeout(3000); // wait for 2 seconds to see the alert
+  27 |
+  28 |
+  29 | })
+  30 |
+  31 |
+  32 | test.skip('Alert with Confirm ', async({ page })=>{
+  33 |
+  34 |     await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+  35 |
+  36 |     await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+  37 |
+  38 |     await page.on('dialog ', async dialog =>{
+  39 |
+  40 |         //expect(dialog.type()).toBe('alert');
+  41 |         console.log(dialog.message());
+  42 |         dialog.dissmis(); // accept the alert
+  43 |     })
+  44 |
+  45 |    await page.locator("//button[@onclick='jsConfirm()']").click(); // click on the button to open the alert
+  46 |
+  47 |     
+  48 |         await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+  49 |     
+  50 |         const text= await page.locator("//p[@id='result']");
+  51 |     
+  52 |         await expect(await text.textContent()).toBe('You clicked: Cancel'); // check the text of the alert
+  53 |     
+  54 |         await page.waitForTimeout(3000); // wait for 2 seconds to see the alert
+  55 |
+  56 |
+  57 | })
+  58 |
+  59 |
+  60 | test('Alert with prompt ', async({ page })=>{
+  61 |
+  62 |     await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+  63 |
+  64 |     await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+  65 |
+  66 |     await page.on('dialog ', async dialog =>{
+  67 |
+  68 |         //expect(dialog.type()).toBe('alert');
+  69 |         console.log(dialog.message());
+  70 |         dialog.accept('Yildirim'); // accept the alert
+  71 |     })
+  72 |
+  73 |    await page.locator("//button[@onclick='jsPrompt()']").click(); // click on the button to open the alert
+  74 |
+  75 |     
+  76 |         await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+  77 |     
+  78 |         const text= await page.locator("//p[@id='result']");
+  79 |     
+> 80 |         await expect(await text.textContent()).toBe('You entered: Yildirim'); // check the text of the alert
+     |                                                ^ Error: expect(received).toBe(expected) // Object.is equality
+  81 |     
+  82 |         await page.waitForTimeout(3000); // wait for 2 seconds to see the alert
+  83 |
+  84 |
+  85 | })
+  86 |
+```

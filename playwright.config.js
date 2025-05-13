@@ -47,7 +47,7 @@ export default defineConfig({
 
   },
 
- // timeout: 2000,
+ //timeout: 20000,
 
   /* Configure projects for major browsers */
   projects: [

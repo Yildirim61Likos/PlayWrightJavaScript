@@ -1,0 +1,117 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Prompt Alert 
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Alert1.spec.js:49:8
+
+# Error details
+
+```
+Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "You entered: Hello"
+Received: "You entered: null"
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\Alert1.spec.js:68:47
+```
+
+# Page snapshot
+
+```yaml
+- link "Fork me on GitHub":
+  - img "Fork me on GitHub"
+- heading "JavaScript Alerts" [level=3]
+- paragraph: Here are some examples of different JavaScript alerts which can be troublesome for automation
+- list:
+  - listitem:
+    - button "Click for JS Alert"
+  - listitem:
+    - button "Click for JS Confirm"
+  - listitem:
+    - button "Click for JS Prompt"
+- heading "Result:" [level=4]
+- paragraph: "You entered: null"
+- separator
+- text: Powered by
+- link "Elemental Selenium"
+```
+
+# Test source
+
+```ts
+   1 | import{test , expect} from '@playwright/test';
+   2 |
+   3 | test.skip('Regular Alert ', async ({page})=>{
+   4 |
+   5 |  await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+   6 |
+   7 |  await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+   8 |
+   9 |  await page.on('dialog ', async dialog=>{
+  10 |
+  11 |     //expect(dialog.type()).toBe('alert');
+  12 |     console.log(dialog.message());
+  13 |     dialog.accept(); // accept the alert
+  14 |
+  15 |
+  16 |  })
+  17 |
+  18 |     await page.locator("//button[@onclick='jsAlert()']").click(); // click on the button to open the alert
+  19 |
+  20 |     await page.waitForTimeout(3000);
+  21 |
+  22 |
+  23 | })
+  24 |
+  25 |
+  26 | test.skip('Confirm Alert ', async ({page})=>{
+  27 |
+  28 |     await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+  29 |    
+  30 |     await page.waitForTimeout(3000); // wait for 3 seconds to see the alert
+  31 |    
+  32 |     await page.on('dialog ', async dialog=>{
+  33 |    
+  34 |        //expect(dialog.type()).toBe('alert');
+  35 |        console.log(dialog.message());
+  36 |        dialog.dissmis(); // accept the alert
+  37 |    
+  38 |    
+  39 |     })
+  40 |    
+  41 |        await page.locator("//button[@onclick='jsConfirm()']").click(); // click on the button to open the alert
+  42 |    
+  43 |        await page.waitForTimeout(3000);
+  44 |    
+  45 |    
+  46 |    })
+  47 |
+  48 |
+  49 |    test('Prompt Alert ', async ({page})=>{
+  50 |
+  51 |     await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
+  52 |     // wait for 3 seconds to see the alert
+  53 |    
+  54 |     await page.on('dialog ', async dialog=>{
+  55 |    
+  56 |       // expect(dialog.type()).toBe('alert');
+  57 |        console.log(dialog.message());
+  58 |        await dialog.accept('Hello'); // accept the alert
+  59 |    
+  60 |    
+  61 |     })
+  62 |    
+  63 |        await page.locator("//button[@onclick='jsPrompt()']").click(); // click on the button to open the alert
+  64 |    
+  65 |        await page.waitForTimeout(3000);
+  66 |        const text= await page.locator("//p[@id='result']");
+  67 |     
+> 68 |        await expect(await text.textContent()).toBe('You entered: Hello'); // check the text of the alert
+     |                                               ^ Error: expect(received).toBe(expected) // Object.is equality
+  69 |    
+  70 |    })
+```

@@ -1,0 +1,74 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: LoginTest@smoke
+- Location: C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\tests\LoginTest.spec.js:4:5
+
+# Error details
+
+```
+Error: page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://hrm.neotechacademy.com/", waiting until "load"
+
+    at BasePage.setup (C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\support\BasePage.js:26:27)
+    at C:\Users\yildi\VsCodeProjects\PlayWrightJavaScript\hooks\global-hooks.js:27:5
+```
+
+# Test source
+
+```ts
+   1 | import { chromium, firefox, webkit } from '@playwright/test';
+   2 | class BasePage {
+   3 |   constructor() {
+   4 |       this.browser = null;
+   5 |       this.context = null;
+   6 |       this.page = null;
+   7 |   }
+   8 |
+   9 |   async setup(browserName = 'chromium', headless = true, baseURL = '') {
+  10 |       console.log(`Setting up browser: ${browserName}...`);
+  11 |       try {
+  12 |           if (browserName === 'chromium') {
+  13 |             this.browser = await chromium.launch({ headless, channel: 'chrome' });
+  14 |           }else if (browserName === 'firefox') {
+  15 |               this.browser = await firefox.launch({ headless });
+  16 |           } else if (browserName === 'webkit') {
+  17 |               this.browser = await webkit.launch({ headless });
+  18 |           } else {
+  19 |               throw new Error(`Unsupported browser: ${browserName}`);
+  20 |           }
+  21 |
+  22 |           this.context = await this.browser.newContext();
+  23 |           this.page = await this.context.newPage();
+  24 |
+  25 |           console.log(`Navigating to: ${baseURL}`);
+> 26 |           await this.page.goto(baseURL);
+     |                           ^ Error: page.goto: Target page, context or browser has been closed
+  27 |       } catch (error) {
+  28 |           console.error("Error during setup:", error);
+  29 |           throw error;
+  30 |       }
+  31 |   }
+  32 |
+  33 |   async teardown() {
+  34 |       console.log("Tearing down browser...");
+  35 |       try {
+  36 |           if (this.page) await this.page.close();
+  37 |           if (this.context) await this.context.close();
+  38 |           if (this.browser) await this.browser.close();
+  39 |           console.log("Browser closed successfully.");
+  40 |       } catch (error) {
+  41 |           console.error("Error during teardown:", error);
+  42 |           throw error;
+  43 |       }
+  44 |   }
+  45 | }
+  46 |
+  47 | export { BasePage };
+```

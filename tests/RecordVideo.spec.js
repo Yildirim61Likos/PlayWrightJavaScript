@@ -1,4 +1,4 @@
-import{test,expecyt} from '@playwright/test';
+import{test,expect} from '@playwright/test';
 
 
 test('Page Screenshot', async({ page })=>{

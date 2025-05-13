@@ -2,7 +2,7 @@ import { BasePage } from '../support/BasePage';
 
 class LoginPage extends BasePage {
     constructor(page) {
-        super(page); // Call the parent class constructor
+        super(page); // Call the parent class constructor/ 
         this.page = page; // Assign the page object
         this.locators = {
             usernameInput: this.page.locator("//input[@id='txtUsername']"),
